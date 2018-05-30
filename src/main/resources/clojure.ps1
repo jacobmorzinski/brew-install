@@ -56,7 +56,7 @@ while ($params.Count -gt 0) {
   } elseif ($arg.StartsWith("-C")) {
     $aliases, $params = $params
     if ($aliases) {
-      $ClassPathAliases = += $aliases
+      $ClassPathAliases += $aliases
     } else {
       echo "Missing aliases"
       exit 1
@@ -64,7 +64,7 @@ while ($params.Count -gt 0) {
   } elseif ($arg.StartsWith("-O")) {
     $aliases, $params = $params
     if ($aliases) {
-      $JvmAliases = += $aliases
+      $JvmAliases += $aliases
     } else {
       echo "Missing aliases"
       exit 1
@@ -72,7 +72,7 @@ while ($params.Count -gt 0) {
   } elseif ($arg.StartsWith("-M")) {
     $aliases, $params = $params
     if ($aliases) {
-      $MainAliases = += $aliases
+      $MainAliases += $aliases
     } else {
       echo "Missing aliases"
       exit 1
@@ -80,7 +80,7 @@ while ($params.Count -gt 0) {
   } elseif ($arg.StartsWith("-A")) {
     $aliases, $params = $params
     if ($aliases) {
-      $AllAliases = += $aliases
+      $AllAliases += $aliases
     } else {
       echo "Missing aliases"
       exit 1
@@ -305,18 +305,18 @@ if ($Pom) {
     }
   }
   echo "
-    {:version \"${project.version}\"
+    {:version `"${project.version}`"
      :config-files [$PathVector]
      :install-dir $InstallDir
      :config-dir $ConfigDir
      :cache-dir $CacheDir
      :force $Force
      :repro $Repro
-     :resolve-aliases "$(join '' ${resolve_aliases[@]})"
-     :classpath-aliases "$(join '' ${classpath_aliases[@]})"
-     :jvm-aliases "$(join '' ${jvm_aliases[@]})"
-     :main-aliases "$(join '' ${main_aliases[@]})"
-     :all-aliases "$(join '' ${all_aliases[@]})"}
+     :resolve-aliases `"$ResolveAliases`"
+     :classpath-aliases `"$ClasspathAliases`"
+     :jvm-aliases `"$JvmAliases`"
+     :main-aliases `"$MainAliases`"
+     :all-aliases `"$AllAliases`"}
   "
 } elseif ($Tree) {
   & "$JavaCmd" -Xmx256m -classpath "$ToolsCp" clojure.main -m clojure.tools.deps.alpha.script.print-tree "--libs-file=$LibsFile"
