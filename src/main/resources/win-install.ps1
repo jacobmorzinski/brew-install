@@ -16,6 +16,7 @@ if ($PSVersionTable.Platform -eq "Unix") {
     $DestinationPath="/usr/local"
 } else {
     $DestinationPath="$env:APPDATA\Clojure"
+    mkdir $DestinationPath -ErrorAction SilentlyContinue | Out-Null
 }
 
 echo "Installing libs into $DestinationPath"
